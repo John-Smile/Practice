@@ -30,7 +30,7 @@ public class BoundedBuffer<E> {
 	public E take() throws InterruptedException {
 		availableItems.acquire();
 		E item = doExtract();
-		availableItems.release();
+		availableSpaces.release();
 		return item;
 	}
 	
@@ -38,13 +38,15 @@ public class BoundedBuffer<E> {
 		int i = putPosition;
 		items[i] = x;
 		putPosition = (++i == items.length) ? 0 : i;
+		System.out.println("insert " + x);
 	}
 	
 	private synchronized E doExtract() {
 		int i = takePosition;
 		E x = items[i];
 		items[i] = null;
-		takePosition = (++i == items.length) ? 0 : 1;
+		takePosition = (++i == items.length) ? 0 : i;
+		System.out.println("extract " + x);
 		return x;
 	}
 	
