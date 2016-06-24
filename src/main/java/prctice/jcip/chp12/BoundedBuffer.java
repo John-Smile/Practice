@@ -38,7 +38,7 @@ public class BoundedBuffer<E> {
 		int i = putPosition;
 		items[i] = x;
 		putPosition = (++i == items.length) ? 0 : i;
-		System.out.println("insert " + x);
+//		System.out.println("insert " + x);
 	}
 	
 	private synchronized E doExtract() {
@@ -46,7 +46,7 @@ public class BoundedBuffer<E> {
 		E x = items[i];
 		items[i] = null;
 		takePosition = (++i == items.length) ? 0 : i;
-		System.out.println("extract " + x);
+//		System.out.println("extract " + x);
 		return x;
 	}
 	
