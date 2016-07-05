@@ -8,16 +8,18 @@ public class TestingPassword {
 		TestingPassword test = new TestingPassword();
 		test.authentication1();
 	}
-	private void authentication1() {
+	public void authentication1() {
 		Jedis jedis = new Jedis(ConnectionProperties.host);
 		jedis.set("foo", "bar");
 		System.out.println(jedis.get("foo"));
+		jedis.close();
 	}
-	private void authentication2() {
+	public void authentication2() {
 		Jedis jedis = new Jedis(ConnectionProperties.host);
 		jedis.auth("hmk");
 		jedis.set("foo", "bar");
 		System.out.println(jedis.get("foo"));
+		jedis.close();
 	}
 
 }

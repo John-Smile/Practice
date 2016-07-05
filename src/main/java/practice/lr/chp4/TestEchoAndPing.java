@@ -18,11 +18,13 @@ public class TestEchoAndPing {
 		long start = System.currentTimeMillis();
 		Jedis jedis = new Jedis(ConnectionProperties.host);
 		System.out.println(jedis.ping() + " in " + (System.currentTimeMillis() - start) + " milliseconds");
+		jedis.close();
 	}
 	private void testEcho() {
 		long start = System.currentTimeMillis();
 		Jedis jedis = new Jedis(ConnectionProperties.host);
 		System.out.println(jedis.echo("hi Redis ") + " in " + (System.currentTimeMillis() - start) + " milliseconds");
+		jedis.close();
 	}
 
 }

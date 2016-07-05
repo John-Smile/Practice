@@ -9,6 +9,7 @@ public class ConditionBoundedBuffer<T> {
 	private final Condition notFull = lock.newCondition();
 	private final Condition notEmpty = lock.newCondition();
 	private int BUFFER_SIZE;
+	@SuppressWarnings("unchecked")
 	private final T[] items = (T[]) new Object[BUFFER_SIZE];
 	private int tail, head, count;
 	

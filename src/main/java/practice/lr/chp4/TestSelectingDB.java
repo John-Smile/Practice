@@ -15,6 +15,7 @@ public class TestSelectingDB {
 		System.out.println(jedis.get("msg"));
 		jedis.select(2);
 		System.out.println(jedis.get("msg"));
+		jedis.close();
 	}
 
 }

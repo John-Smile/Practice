@@ -6,6 +6,7 @@ public abstract class BaseBoundedBuffer<V> {
 	private int head;
 	private int count;
 	
+	@SuppressWarnings("unchecked")
 	protected BaseBoundedBuffer(int capacity) {
 		this.buf = (V[]) new Object[capacity];
 	}

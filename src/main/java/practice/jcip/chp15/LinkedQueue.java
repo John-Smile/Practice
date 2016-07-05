@@ -4,17 +4,17 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class LinkedQueue<E> {
 	private static class Node <E> {
-		final E item;
+//		final E item;
 		final AtomicReference<Node<E>> next;
 		
 		public Node(E item, Node<E> next) {
-			this.item = item;
+//			this.item = item;
 			this.next = new AtomicReference<Node<E>>(next);
 		}
 	}
 	
 	private final Node<E> dummy = new Node<E>(null, null);
-	private final AtomicReference<Node<E>> head = new AtomicReference<Node<E>>(dummy);
+//	private final AtomicReference<Node<E>> head = new AtomicReference<Node<E>>(dummy);
 	private final AtomicReference<Node<E>> tail = new AtomicReference<Node<E>>(dummy);
 	
 	public boolean put(E item) {

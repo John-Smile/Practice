@@ -14,6 +14,11 @@ public class OneShotLatch {
 	}
 	
 	private class Sync extends AbstractQueuedSynchronizer {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -9109437606212832320L;
+
 		protected int tryAcquireShared(int ignored) {
 			return (getState() == 1) ? 1 : -1;
 		}

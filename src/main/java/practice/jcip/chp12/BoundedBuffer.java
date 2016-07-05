@@ -7,6 +7,7 @@ public class BoundedBuffer<E> {
 	private final E[] items;
 	private int putPosition = 0, takePosition = 0;
 	
+	@SuppressWarnings("unchecked")
 	public BoundedBuffer(int capacity) {
 		availableItems = new Semaphore(0);
 		availableSpaces = new Semaphore(capacity);
