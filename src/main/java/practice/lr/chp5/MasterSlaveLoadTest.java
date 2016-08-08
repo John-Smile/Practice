@@ -7,9 +7,6 @@ import practice.lr.chp3.ConnectionProperties;
 
 public class MasterSlaveLoadTest {
 	private List<Thread> threadList = new ArrayList<Thread>();
-	public static void main(String[] args) {
-		
-	}
 	public void setup() {
 		Thread pumpData = new Thread(new PumpData());
 		pumpData.start();
@@ -30,7 +27,7 @@ public class MasterSlaveLoadTest {
 		for (int number = 1; number < 6; number++) {
 			Thread thread = new Thread(new FetchData(number, starttime0, ConnectionProperties.host, 6381));
 			threadList.add(thread);
-		}
+		} 
 		long starttime1 = System.currentTimeMillis();
 		for (int number = 6; number < 11; number++) {
 			Thread thread = new Thread(new FetchData(number, starttime1, ConnectionProperties.host, 6380));
