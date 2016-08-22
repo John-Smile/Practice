@@ -17,7 +17,8 @@ public class RecommenderIntro {
 	public static void main(String[] args) throws Exception {
 		System.out.println(System.getProperty("user.dir"));
 		System.out.println("Reading file start...");
-		DataModel model = new FileDataModel(new File(".\\src\\main\\resources\\data\\intro.csv"));
+//		DataModel model = new FileDataModel(new File(".\\src\\main\\resources\\data\\intro.csv"));
+		DataModel model = new FileDataModel(new File(".\\src\\main\\resources\\data\\ua.base"));
 		System.out.println("Reading file end...");
 		
 		UserSimilarity similarity = new PearsonCorrelationSimilarity(model);

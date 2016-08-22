@@ -3,9 +3,10 @@ package practice.mh.chp2;
 import java.io.File;
 
 import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.eval.IRStatistics;
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
-import org.apache.mahout.cf.taste.eval.RecommenderEvaluator;
-import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator;
+import org.apache.mahout.cf.taste.eval.RecommenderIRStatsEvaluator;
+import org.apache.mahout.cf.taste.impl.eval.GenericRecommenderIRStatsEvaluator;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
@@ -16,15 +17,13 @@ import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.common.RandomUtils;
 
-public class RecommenderEvaluatorTest {
+public class IRStatusTest {
 	public static void main(String[] args) throws Exception {
 		RandomUtils.useTestSeed();
-		DataModel model = new FileDataModel(new File(".\\src\\main\\resources\\data\\ua.base"));
+		DataModel model = new FileDataModel(new File(".\\src\\main\\resources\\data\\intro.csv"));
 		
-		RecommenderEvaluator evaluator =
-				new AverageAbsoluteDifferenceRecommenderEvaluator();
-//		RecommenderEvaluator evaluator = new RMSRecommenderEvaluator();
-		
+		RecommenderIRStatsEvaluator evaluator =
+				new GenericRecommenderIRStatsEvaluator();
 		RecommenderBuilder recommenderBuilder = new RecommenderBuilder() {
 			@Override
 			public Recommender buildRecommender(DataModel model) throws TasteException {
@@ -35,8 +34,13 @@ public class RecommenderEvaluatorTest {
 			}
 		};
 		
-		double score = evaluator.evaluate(recommenderBuilder, null, model, 0.7, 1.0);
-		System.out.println(score);
+		IRStatistics stats = evaluator.evaluate(recommenderBuilder,
+				                                null, model, null, 2,
+				                                GenericRecommenderIRStatsEvaluator.CHOOSE_THRESHOLD, 
+				                                1.0);
+		System.out.println(stats.getPrecision());
+		System.out.println(stats.getRecall());
+				
 	}
 
 }
