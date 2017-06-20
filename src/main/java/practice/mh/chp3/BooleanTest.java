@@ -21,7 +21,7 @@ import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
 public class BooleanTest {
 	public static void main(String[] args) throws Exception {
-		DataModel model = new GenericBooleanPrefDataModel(GenericBooleanPrefDataModel.toDataMap(new FileDataModel(new File(".\\src\\main\\resources\\data\\ua.base"))));
+		final DataModel model = new GenericBooleanPrefDataModel(GenericBooleanPrefDataModel.toDataMap(new FileDataModel(new File(".\\src\\main\\resources\\data\\ua.base"))));
 		
 		RecommenderEvaluator evaluator = new AverageAbsoluteDifferenceRecommenderEvaluator();
 		
