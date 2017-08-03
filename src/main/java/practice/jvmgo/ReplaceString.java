@@ -9,9 +9,9 @@ import java.nio.file.Path;
  */
 public class ReplaceString {
     public static void main(String[] args) {
-        String dir = "E:\\Go\\workspace\\src\\jvmgo\\ch09"; //args[1];
-        String regex = "ch08";
-        String replacement = "ch09";
+        String dir = "E:\\Go\\workspace\\src\\jvmgo\\ch10"; //args[1];
+        String regex = "ch09";
+        String replacement = "ch10";
         File file = new File(dir);
         walkThroughDirectory(file, regex, replacement);
     }
