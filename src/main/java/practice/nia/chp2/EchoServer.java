@@ -28,7 +28,7 @@ public class EchoServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(group)
                     .channel(NioServerSocketChannel.class)
-                    .localAddress(new InetSocketAddress(80))
+                    .localAddress(new InetSocketAddress(8080))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {

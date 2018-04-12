@@ -1,7 +1,6 @@
 package practice.nia.chp2;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -33,13 +32,13 @@ public class EchoClient {
                             ch.pipeline().addLast(new EchoClientHandler());
                         }
                     });
-            ChannelFuture f = b.connect().sync();
+            b.connect().sync();
         } finally {
             group.shutdownGracefully().sync();
         }
     }
 
     public static void main(String[] args) throws Exception {
-        new EchoClient("127.0.0.1", 8089).start();
+        new EchoClient("localhost", 8080).start();
     }
 }
