@@ -15,7 +15,12 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         Channel channel = ctx.channel();
         ByteBufAllocator allocator = channel.alloc();
         ByteBuf buffer = allocator.directBuffer();
-        assert buffer.refCnt() == 1;
+        System.out.println(buffer.refCnt());
+        buffer.retain();
+        System.out.println(buffer.refCnt());
+        boolean res = buffer.release();
+        System.out.println(res);
+        System.out.println(buffer.refCnt());
 
         System.out.println("Server receibed: " + in.toString(CharsetUtil.UTF_8));
         ctx.write(in);
