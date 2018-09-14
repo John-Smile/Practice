@@ -36,10 +36,15 @@
             <artifactId>mahout-collections</artifactId>
             <version>1.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.netty</groupId>-->
+            <!--<artifactId>netty-all</artifactId>-->
+            <!--<version>4.1.22.Final</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.22.Final</version>
+            <version>5.0.0.Alpha1</version>
         </dependency>
     </dependencies>
 
