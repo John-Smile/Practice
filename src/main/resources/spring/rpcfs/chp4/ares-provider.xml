@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="practice.rpcfs.chp4.ProviderFactoryBean" lazy-init="false">
+        <property name="serviceItf" value="practice.rpcfs.chp4.HelloService"/>
+        <property name="serviceObject">
+            <bean class="practice.rpcfs.chp4.HelloServiceImpl"/>
+        </property>
+        <property name="appKey" value="ares"/>
+        <property name="weight" value="2"/>
+        <property name="groupName" value="default"/>
+        <property name="workerThreads" value="11"/>
+        <property name="servicePort" value="8081"/>
+        <property name="timeout" value="600"/>
+    </bean>
+</beans>
