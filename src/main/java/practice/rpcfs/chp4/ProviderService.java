@@ -12,6 +12,7 @@ public class ProviderService {
     private int weight;
     private int workerThreads;
     private String groupName;
+    private int serverPort;
 
     public Class<?> getServiceItf() {
         return serviceItf;
@@ -83,5 +84,13 @@ public class ProviderService {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
+
+    public int getServerPort() {
+        return serverPort;
     }
 }
