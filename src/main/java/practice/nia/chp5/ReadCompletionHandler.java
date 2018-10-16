@@ -5,10 +5,10 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.Date;
 
-public class ReadCompletionHander implements CompletionHandler<Integer, ByteBuffer> {
+public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
     private AsynchronousSocketChannel asynchronousSocketChannel;
 
-    public ReadCompletionHander(AsynchronousSocketChannel result) {
+    public ReadCompletionHandler(AsynchronousSocketChannel result) {
         if (asynchronousSocketChannel == null) {
             asynchronousSocketChannel = result;
         }
