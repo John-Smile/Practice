@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface IRegisterCenter4Invoker {
     void initProviderMap();
-    Map<String, List<ProviderService>> getServiceMetaDataMap4Consume();
+    Map<String, List<ProviderService>> getServiceMetaDataMap4Consumer();
     void registerInvoker(final InvokerService invoker);
 }

@@ -27,4 +27,25 @@ public class AresRequest {
     public Object[] getArgs() {
         return args;
     }
+
+    public void setUniqueKey(String uniqueKey) {
+        this.uniqueKey = uniqueKey;
+    }
+
+    public void setProviderService(ProviderService providerService) {
+        this.providerService = providerService;
+    }
+
+    private int invokeTimeout;
+    public void setInvokeTimeout(int invokeTimeout) {
+        this.invokeTimeout = invokeTimeout;
+    }
+
+    public void setInvokedMethodName(String invokedMethodName) {
+        this.invokedMethodName = invokedMethodName;
+    }
+
+    public void setArgs(Object[] args) {
+        this.args = args;
+    }
 }

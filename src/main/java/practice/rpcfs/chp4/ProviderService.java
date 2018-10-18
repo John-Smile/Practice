@@ -93,4 +93,8 @@ public class ProviderService {
     public int getServerPort() {
         return serverPort;
     }
+
+    public ProviderService copy() {
+        return null;
+    }
 }

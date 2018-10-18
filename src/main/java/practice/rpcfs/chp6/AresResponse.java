@@ -24,4 +24,8 @@ public class AresResponse {
     public String getUniqueKey() {
         return uniqueKey;
     }
+
+    public Object getResult() {
+        return result;
+    }
 }

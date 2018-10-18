@@ -100,7 +100,7 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
     }
 
     @Override
-    public Map<String, List<ProviderService>> getServiceMetaDataMap4Consume() {
+    public Map<String, List<ProviderService>> getServiceMetaDataMap4Consumer() {
         return serviceMetaDtaMap4Consume;
     }
 
