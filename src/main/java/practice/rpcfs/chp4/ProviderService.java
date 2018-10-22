@@ -97,4 +97,9 @@ public class ProviderService {
     public ProviderService copy() {
         return null;
     }
+
+    private String appKey;
+    public String getAppKey() {
+        return appKey;
+    }
 }

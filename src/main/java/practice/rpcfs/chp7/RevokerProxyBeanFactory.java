@@ -66,6 +66,7 @@ public class RevokerProxyBeanFactory implements InvocationHandler {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         return null;
     }
     public Object getProxy() {
