@@ -8,8 +8,9 @@ import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.serialize.SerializableSerializer;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import practice.rpcfs.chp4.IPHelper;
 import practice.rpcfs.chp4.ProviderService;
 import practice.rpcfs.chp5.IRegisterCenter4Invoker;
@@ -21,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4Provider {
+public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4Provider, IRegisterCenter4Governance {
     private static RegisterCenter registerCenter = new RegisterCenter();
     private static final Map<String, List<ProviderService>> providerServiceMap = Maps.newConcurrentMap();
     private static final Map<String, List<ProviderService>> serviceMetaDataMap4Consume = Maps.newConcurrentMap();
@@ -222,5 +223,79 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
         }
         providerServiceMap.clear();
         providerServiceMap.putAll(currentServiceMetaDataMap);
+    }
+
+    @Override
+    public Pair<List<ProviderService>, List<InvokerService>> queryProvidersAndInvokers(String serviceName, String appKey) {
+        List<InvokerService> invokerServices = Lists.newArrayList();
+        List<ProviderService> providerServices = Lists.newArrayList();
+        if (zkClient == null) {
+            synchronized (RegisterCenter.class) {
+                if (zkClient == null) {
+                    zkClient = new ZkClient(ZK_SERVICE, ZK_SESSION_TIME_OUT, ZK_CONNECTION_TIME_OUT, new SerializableSerializer());
+                }
+            }
+        }
+        String parentPath = ROOT_PATH + "/" + appKey;
+        List<String> groupServiceList = zkClient.getChildren(parentPath);
+        if (CollectionUtils.isEmpty(groupServiceList)) {
+            return Pair.of(providerServices, invokerServices);
+        }
+        for (String group : groupServiceList) {
+            String groupPath = parentPath + "/" + group;
+            List<String> serviceList = zkClient.getChildren(groupPath);
+            if (CollectionUtils.isEmpty(serviceList)) {
+                continue;
+            }
+            for (String service : serviceList) {
+                String servicePath = groupPath + "/" + service;
+                List<String> serviceTypes = zkClient.getChildren(servicePath);
+                if (CollectionUtils.isEmpty(serviceTypes)) {
+                    continue;
+                }
+                for (String serviceType : serviceTypes) {
+                    if (StringUtils.equals(serviceType, PROVIDER_TYPE)) {
+                        String providerPath = servicePath + "/" + serviceType;
+                        List<String> providers = zkClient.getChildren(providerPath);
+                        if (CollectionUtils.isEmpty(providers)) {
+                            continue;
+                        }
+                        for (String provider : providers) {
+                            String[] providerNodeArr = StringUtils.split(provider, "|");
+                            ProviderService providerService = new ProviderService();
+                            providerService.setAppKey(appKey);
+                            providerService.setGroupName(group);;
+                            providerService.setServerIp(providerNodeArr[0]);
+                            providerService.setServerPort(Integer.parseInt(providerNodeArr[1]));
+                            providerService.setWeight(Integer.parseInt(providerNodeArr[2]));
+                            providerService.setWorkerThreads(Integer.parseInt(providerNodeArr[3]));
+                            providerServices.add(providerService);
+                        }
+                    } else if (StringUtils.equals(serviceType, INVOKER_TYPE)) {
+                        String invokerPath = servicePath + "/" + serviceType;
+                        List<String> invokers = zkClient.getChildren(invokerPath);
+                        if (CollectionUtils.isEmpty(invokers)) {
+                            continue;
+                        }
+                        for (String invoker : invokers) {
+                            InvokerService invokerService = new InvokerService();
+                            invokerService.setRemoteAppKey(appKey);
+                            invokerService.setGroupName(group);
+                            invokerService.setInvokerIp(invoker);
+                            invokerServices.add(invokerService);
+                        }
+                    }
+                }
+            }
+        }
+        return Pair.of(providerServices, invokerServices);
+    }
+
+    public static void main(String[] args) {
+        IRegisterCenter4Governance invoker = RegisterCenter.singleton();
+        Pair<List<ProviderService>, List<InvokerService>> pair = invoker.queryProvidersAndInvokers("com.dubbo.HelloService", "hello");
+        List<ProviderService> providerServices = pair.getLeft();
+        List<InvokerService> invokerServices = pair.getRight();
+        System.out.println(providerServices.size() + " " + invokerServices.size());
     }
 }

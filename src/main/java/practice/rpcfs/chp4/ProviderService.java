@@ -102,4 +102,8 @@ public class ProviderService {
     public String getAppKey() {
         return appKey;
     }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
 }

@@ -37,7 +37,7 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
         return registerCenter;
     }
 
-    @Override
+//    @Override
     public void initProviderMap() {
         if (MapUtils.isEmpty(serviceMetaDtaMap4Consume)) {
             serviceMetaDtaMap4Consume.putAll(fetchOrUpdateServiceMetaData());
@@ -97,6 +97,11 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
             }
         }
         return providerServiceMap;
+    }
+
+    @Override
+    public void initProviderMap(String remoteAppKey, String groupName) {
+
     }
 
     @Override
