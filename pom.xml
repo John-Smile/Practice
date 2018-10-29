@@ -158,8 +158,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.49</version>
         </dependency>
-
-
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
