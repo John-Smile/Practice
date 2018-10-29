@@ -264,7 +264,7 @@ public class RegisterCenter implements IRegisterCenter4Invoker, IRegisterCenter4
                             String[] providerNodeArr = StringUtils.split(provider, "|");
                             ProviderService providerService = new ProviderService();
                             providerService.setAppKey(appKey);
-                            providerService.setGroupName(group);;
+                            providerService.setGroupName(group);
                             providerService.setServerIp(providerNodeArr[0]);
                             providerService.setServerPort(Integer.parseInt(providerNodeArr[1]));
                             providerService.setWeight(Integer.parseInt(providerNodeArr[2]));
