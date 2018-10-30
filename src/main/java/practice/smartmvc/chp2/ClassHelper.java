@@ -1,5 +1,6 @@
 package practice.smartmvc.chp2;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +35,25 @@ public class ClassHelper {
         Set<Class<?>> classSet = new HashSet<>();
         classSet.addAll(getControllerClassSet());
         classSet.addAll(getServiceClassSet());
+        return classSet;
+    }
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass) {
+        Set<Class<?>> classSet = new HashSet<>();
+        for (Class<?> cls : CLASS_SET) {
+            if (superClass.isAssignableFrom(cls)
+                    && !superClass.equals(cls)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
+    }
+    public static Set<Class<?>> getClassByAnnotation(Class<? extends Annotation> annotationClass) {
+        Set<Class<?>> classSet = new HashSet<>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(annotationClass)) {
+                classSet.add(cls);
+            }
+        }
         return classSet;
     }
 }
