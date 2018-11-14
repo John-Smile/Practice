@@ -32,7 +32,7 @@ public class Param {
             }
         }
         return fieldMap;
-    }q
+    }
     public Map<String, List<FileParam>> getFileMap() {
         Map<String, List<FileParam>> fileMap = new HashMap<>();
         if (CollectionUtils.isNotEmpty(fileParamList)) {
